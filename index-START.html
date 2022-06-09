@@ -182,6 +182,37 @@
     </li>
   </ul>
 <script>
+
+  // Array.from turns and node list into an array
+  const timeNodes = Array.from(document.querySelectorAll('[data-time]'));
+  // console.log(timeNodes);
+  // map over the timeNodes array and make an new array of all the times
+  // then take new array and return new array of mins and seconds slipt it at the : and parse them into a number array with just seconds and the reduce to add them together into how many seconds total in all videos
+  // phew
+  const seconds = timeNodes
+    .map(node => node.dataset.time)
+    .map(timeCodes => {
+      const [mins, secs] = timeCodes.split(':').map(parseFloat);
+      return (mins * 60) + secs;
+      // console.log(mins, secs);
+    }).reduce((total, VidSeconds) => total + VidSeconds);
+
+  // find the hours
+  let secondsLeft = seconds;
+  const hours = Math.floor(secondsLeft / 3600);
+  // moode % how many are left after they are evenly distributed (after you takeout the hours)
+  secondsLeft = secondsLeft % 3600;
+
+  // do the same thing to get the mins and moode the secondsLeft
+  const mins = Math.floor(secondsLeft / 60);
+  secondsLeft = secondsLeft % 60;
+
+  // 4 hours 58 mins and 58 seconds of video
+  console.log(hours, mins, secondsLeft);
+
+
+
+
 </script>
 </body>
 </html>
